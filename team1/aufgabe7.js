@@ -1,11 +1,24 @@
 module.exports = function (app, db) {
-    app.get("/playlists/:id", function (req, res) {
+
+    app.get("/team1/playlists/:id", function (req, res) {
         var playlistTracks = [];
-        db.each("select p.Name as PlaylistName, t.TrackId, t.Name as Name, t.Composer, t.Milliseconds, t.Bytes, "
-        + "t.UnitPrice, g.Name as Genre from Playlist as p inner join PlaylistTrack as pt on p.PlaylistId = pt.PlaylistId inner join Track as t on pt.TrackId = t.TrackId inner join Genre as g on t.GenreId = g.GenreId where p.Playlistid = " + req.params.id,
+        db.each("select p.Name as PlaylistName,"
+                        + " t.TrackId,"
+                        + " t.Name as Name,"
+                        + " t.Composer,"
+                        + " t.Milliseconds,"
+                        + " t.Bytes,"
+                        + " t.UnitPrice,"
+                        + " g.Name as Genre"
+                        + " from Playlist as p"
+                            + " inner join PlaylistTrack as pt on p.PlaylistId = pt.PlaylistId"
+                            + " inner join Track as t on pt.TrackId = t.TrackId"
+                            + " inner join Genre as g on t.GenreId = g.GenreId" 
+                        + " where p.Playlistid = " + req.params.id,
         function (err, row) {
             playlistTracks.push(row);
-        }, function (err, number) {
+        },
+        function (err, number) {
             var playlist = {
                 id: req.params.id,
                 name: playlistTracks[0].PlaylistName,
@@ -26,21 +39,32 @@ module.exports = function (app, db) {
     });
 
 
-    app.get("/playlist2/:id", function (req, res) {
+    app.get("/team1/playlist2/:id", function (req, res) {
         var playlist = {};
-        db.get("select p.PlaylistId as id, p.Name from Playlist as p where p.PlaylistId = " + req.params.id,
+        db.get("select p.PlaylistId as id,"
+                + " p.Name from Playlist as p "
+                + " where p.PlaylistId = " + req.params.id,
             function (err, row) {
                 playlist.id = row.id;
                 playlist.name = row.Name;
                 playlist.tracks = [];
-                db.each("select t.TrackId, t.Name as Name, t.Composer, t.Milliseconds, t.Bytes, "
-                + "t.UnitPrice, g.Name as Genre from PlaylistTrack as pt inner join Track as t on pt.TrackId = t.TrackId inner join Genre as g on t.GenreId = g.GenreId where pt.Playlistid = " + playlist.id,
+                db.each("select t.TrackId,"
+                        + " t.Name as Name,"
+                        + " t.Composer,"
+                        + " t.Milliseconds,"
+                        + " t.Bytes,"
+                        + " t.UnitPrice,"
+                        + " g.Name as Genre" 
+                        + " from PlaylistTrack as pt"
+                            + " inner join Track as t on pt.TrackId = t.TrackId"
+                            + " inner join Genre as g on t.GenreId = g.GenreId"
+                        + " where pt.Playlistid = " + playlist.id,
                 function (err, row) {
                     playlist.tracks.push(row);
                 },
                 function (err, number) {
                     res.send(playlist);
                 });
-        });
+            });
     });
-}
+};

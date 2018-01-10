@@ -1,6 +1,5 @@
 module.exports = function (app, db) {
 
-
     var all_artists = [];
 
     db.each("select ArtistId as id, Name from Artist", function (err, row) {
@@ -10,7 +9,7 @@ module.exports = function (app, db) {
 
 
 
-    app.get('/artists', function (request, response) {
+    app.get('/team1/artists', function (request, response) {
         response.json({ artists: all_artists });
     });
 }
