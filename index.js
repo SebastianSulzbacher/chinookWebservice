@@ -6,6 +6,8 @@ var db = new sqlite3.Database('./Chinook_Sqlite.sqlite');
 var env = require('cfenv'); 
 var appEnv = env.getAppEnv();
 
+// ich war hier :-)
+
 var app = express();
 
 team1_routes(app,db);
