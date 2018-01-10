@@ -8,6 +8,7 @@ var aufgabe7 = require('./team1/aufgabe7.js');
 var aufgabe11 = require('./aufgabe11')
 var aufgabe12 = require('./aufgabe12')
 var aufgabe16 = require('./team1/aufgabe16.js');
+var teamOnePiece_routes = require('./teamOnePiece.js');
 
 var express = require('express')
 var sqlite3 = require('sqlite3').verbose();
@@ -29,7 +30,7 @@ aufgabe7(app, db);
 aufgabe11(app, db);
 aufgabe12(app, db);
 aufgabe16(app, db);
-
+teamOnePiece_routes(app, db);
 
 app.listen(appEnv.port, function () {
     console.log("webservice started at " + appEnv.url);
