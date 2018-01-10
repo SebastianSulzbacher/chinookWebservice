@@ -2,6 +2,9 @@ var team1_routes = require('./team1.js');
 var aufgabe1 = require('./team1/aufgabe1.js');
 var aufgabe5 = require('./team1/aufgabe5.js');
 var aufgabe7 = require('./team1/aufgabe7.js');
+// var aufgabe1 = require('./aufgabe1')
+var aufgabe11 = require('./aufgabe11')
+var aufgabe12 = require('./aufgabe12')
 var aufgabe16 = require('./team1/aufgabe16.js');
 var teamOnePiece_routes = require('./teamOnePiece.js');
 
@@ -20,8 +23,11 @@ team1_routes(app,db);
 aufgabe1(app,db);
 aufgabe5(app,db);
 aufgabe7(app,db);
+aufgabe11(app, db);
+aufgabe12(app, db);
 aufgabe16(app,db);
 teamOnePiece_routes(app,db);
+
 
 app.listen(appEnv.port,function(){
     console.log("webservice started at " + appEnv.url);
