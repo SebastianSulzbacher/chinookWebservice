@@ -3,20 +3,15 @@ var express = require('express')
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('./Chinook_Sqlite.sqlite');
 
+var env = require('cfenv'); 
+var appEnv = env.getAppEnv();
+
 var app = express();
 
 team1_routes(app,db);
 
-app.listen(3000,function(){
-    console.log("webservice started");
-});
-
-db.each("select ArtistId as id, Name from Artist", function (err, row) {
-    if (err) { 
-        console.error(err);
-        return;
-    };
-    console.log(row);
+app.listen(appEnv.port,function(){
+    console.log("webservice started at " + appEnv.url);
 });
 
 console.log("webservice about to start");
