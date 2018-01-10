@@ -3,6 +3,9 @@ var express = require('express')
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('./Chinook_Sqlite.sqlite');
 
+// ich war hier :-)
+
+
 var app = express();
 
 team1_routes(app,db);
